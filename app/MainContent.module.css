@@ -1,0 +1,55 @@
+.introSection {
+    width: 600px; /* Adjust width as needed */
+    height: auto; /* Adjust height as needed, removed fixed height */
+    padding: 20px;
+    background-color: black;
+    border-radius: 10px;
+    margin: 20px auto; /* Reduced margin to decrease space between sections */
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid #333; /* Border to make it look like a box */
+}
+
+.introSection h1 {
+    font-size: 2rem;
+    color: #fff;
+}
+
+.introSection p {
+    color: #fff;
+    margin-bottom: 1rem; /* Add margin-bottom to create gap between paragraphs */
+}
+
+.introSection p:last-child {
+    margin-bottom: 0; /* Remove margin-bottom from the last paragraph */
+}
+
+.actionsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 20px; /* Reduced margin-top to decrease space between sections */
+}
+
+.actionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 600px; /* Match the width of the intro section */
+}
+
+.actionButtons button {
+    flex: 1 1 calc(50% - 10px); /* 50% width minus the gap */
+    padding: 10px 20px;
+    background-color: black;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}

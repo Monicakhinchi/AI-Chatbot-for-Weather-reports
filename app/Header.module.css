@@ -1,0 +1,23 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Light border at the bottom */
+}
+
+.logo {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.buttons a {
+    margin-left: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #3c3c3c;
+    color: #fff;
+    border-radius: 5px;
+}
