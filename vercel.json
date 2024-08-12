@@ -1,3 +1,9 @@
 {
-    "REWRITES":[{"SOURCE":"/(.*)","DESTINATION":"/"}]
-}
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/"
+      }
+    ]
+  }
+  
