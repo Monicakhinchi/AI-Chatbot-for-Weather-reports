@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 
 interface WeatherData {
@@ -15,11 +15,15 @@ interface ErrorResponse {
   message: string;
 }
 
-export async function GET(req: NextRequest) {
-  const url = new URL(req.nextUrl.href);
-  const { searchParams } = url;
-  const query = searchParams.get('query');
+// Type guard to ensure the errorData matches the ErrorResponse interface
+function isErrorResponse(data: any): data is ErrorResponse {
+  return data && typeof data.message === 'string';
+}
 
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const query = searchParams.get('query');
+  
   if (!query) {
     return NextResponse.json({ error: 'City name is required' }, { status: 400 });
   }
@@ -34,8 +38,12 @@ export async function GET(req: NextRequest) {
   try {
     const response = await fetch(apiUrl);
     if (!response.ok) {
-      const errorData = await response.json() as ErrorResponse;
-      return NextResponse.json({ error: errorData.message || 'Unknown error' }, { status: response.status });
+      const errorData = await response.json();
+      if (isErrorResponse(errorData)) {
+        return NextResponse.json({ error: errorData.message || 'Unknown error' }, { status: response.status });
+      } else {
+        return NextResponse.json({ error: 'Unknown error' }, { status: response.status });
+      }
     }
 
     const data = await response.json() as WeatherData;
