@@ -1,10 +1,9 @@
 "use client";
 
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useParams }from 'next/navigation';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './WeatherResult.module.css';
-
 
 interface WeatherResponse {
     name: string;
@@ -17,14 +16,16 @@ interface WeatherResponse {
 }
 
 const WeatherResult = () => {
-    const searchParams = useSearchParams();
-    const query = searchParams.get('query');
+    const params = useParams();
+    const query = params.query;
 
     const [response, setResponse] = useState<WeatherResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (query) {
+            setLoading(true);
             axios.get(`/api/weather?query=${query}`)
                 .then(res => {
                     setResponse(res.data);
@@ -37,12 +38,17 @@ const WeatherResult = () => {
                     } else {
                         setError('Error fetching weather data');
                     }
-                });
+                })
+                .finally(() => setLoading(false));
         }
     }, [query]);
 
     if (!query) {
-        return <p>No city provided.</p>;
+        return <p>No city provided. Please enter a city name to get the weather data.</p>;
+    }
+
+    if (loading) {
+        return <p>Loading...</p>;
     }
 
     return (

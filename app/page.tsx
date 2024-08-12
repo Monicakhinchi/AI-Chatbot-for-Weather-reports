@@ -1,14 +1,18 @@
-import Header from '../app/Header'; // Adjust the path as necessary
-import MainContent from '../app/MainContent'; // Import the new component
-import Chatbot from '../app/Chatbot';
+import React, { Suspense } from 'react';
 
+// Dynamic imports with Suspense
+const Header = React.lazy(() => import('../app/Header'));
+const MainContent = React.lazy(() => import('../app/MainContent'));
+const Chatbot = React.lazy(() => import('../app/Chatbot'));
 
 export default function Home() {
   return (
     <div style={{ backgroundColor: '#2c2c2c', minHeight: '100vh' }}>
-      <Header />
-      <MainContent />
-      <Chatbot />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Header />
+        <MainContent />
+        <Chatbot />
+      </Suspense>
     </div>
   );
 }

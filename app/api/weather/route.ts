@@ -1,5 +1,4 @@
-// app/api/weather/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 
 interface WeatherData {
@@ -16,15 +15,16 @@ interface ErrorResponse {
   message: string;
 }
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
+export async function GET(req: NextRequest) {
+  const url = new URL(req.nextUrl.href);
+  const { searchParams } = url;
   const query = searchParams.get('query');
-  
+
   if (!query) {
     return NextResponse.json({ error: 'City name is required' }, { status: 400 });
   }
 
-  const apiKey = process.env.OPENWEATHERMAP_API_KEY; // Ensure the API key is loaded from environment variables
+  const apiKey = process.env.OPENWEATHERMAP_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: 'API key is missing' }, { status: 500 });
   }
