@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable the `app` directory
+  // Enable experimental features if using Next.js 13+
   experimental: {
-    appDir: true,
+    // Enable React 18 features, if needed
+    reactRoot: true,
+    concurrentFeatures: true,
+    serverComponents: true,
   },
 
   // Remove trailing slash from exported HTML files
@@ -47,10 +50,11 @@ const nextConfig = {
     return config;
   },
 
-  // Ensure consistent layout and CSS handling
-  output: 'standalone', // Ensures your build output is standalone for deployment
-  optimizeFonts: true,  // Optimize font loading
-  productionBrowserSourceMaps: false, // Disable source maps in production to improve performance
+  // Ensure static assets are handled properly
+  assetPrefix: '', // Remove or update based on your deployment setup
+
+  // Optional: for production builds
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;
