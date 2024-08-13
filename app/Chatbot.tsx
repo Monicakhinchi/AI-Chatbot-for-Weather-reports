@@ -26,7 +26,7 @@ const Chatbot: React.FC = () => {
 
   return (
     <div className={styles.chatbot}>
-      <h1>Weather Chatbot</h1>
+      
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleFormSubmit}>
           <input
